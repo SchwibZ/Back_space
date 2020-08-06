@@ -5,7 +5,7 @@ console.log("Petit test du Node JS");
 //La variable express nous permettra d'utiliser les fonctionnalités du module Express.  
 var express = require('express'); 
 //La variable request nous permettra d'utiliser les fonctionnalités du module Request.  
-var request = require('request')
+var request = require('request');
 
 // La variable mongoose nous permettra d'utiliser les fonctionnalités du module mongoose.
 var mongoose = require('mongoose'); 

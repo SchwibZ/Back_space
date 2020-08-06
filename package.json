@@ -1,0 +1,24 @@
+{
+  "name": "back_space",
+  "version": "1.0.0",
+  "description": "",
+  "main": "back.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon back.js",
+    "prestart": "nodemon space.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SchwibZ/Back_space.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SchwibZ/Back_space/issues"
+  },
+  "homepage": "https://github.com/SchwibZ/Back_space#readme",
+  "dependencies": {
+    "logger": "0.0.1"
+  }
+}
