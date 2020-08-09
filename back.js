@@ -5,7 +5,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const request = require('request');
-const logger = require('logger');
+//const logger = require('logger');
 console.log("const require : OK");
 
 // const global
@@ -49,7 +49,7 @@ const getDataCompletive = (cookie) => {
     // var currentTime = new Date().getTime();
     // while (currentTime + 60000 * 5 >= new Date().getTime()) {}
     // const Completive = mongoose.model('Completive');
-    console.log(cookie);
+    ////console.log(cookie);
     request.post(`${url}/medias/js/factory/widgets/cxscheduler/kernel/get_xml.php?connecter=messagin`, {
         form: {
             'data[calltype]': 'iressources',
@@ -75,7 +75,97 @@ const getDataCompletive = (cookie) => {
     })
 }
 
-getDataCompletive();
+const getVieScolaire = (cookie) => {
+    // var currentTime = new Date().getTime();
+    // while (currentTime + 60000 * 5 >= new Date().getTime()) {}
+    // const Completive = mongoose.model('Completive');
+    ////console.log(cookie);
+    request.post(`${url}/index.php`, {
+        form: {
+            'sys[task]': 'viescolaire',
+            'sys[name]': 'viescolaire',
+            'sys[type]': 'widget',
+            'sys[lang]': 'fr-FR',
+        },
+        headers: {
+            Cookie: `${cookie}`,
+        }
+    }, async (err, res, body) => {
+        if (err)
+            console.log(err, 'completive.log')
+        try {
+            console.log("Get VieScolaire reussi");
+            console.log(body);
+            return JSON.parse(body).ressources;
+
+        } catch (e) {
+            console.log(e, 'completive.log');
+        }
+    })
+}
+
+const getMessages = (cookie) => {
+    // var currentTime = new Date().getTime();
+    // while (currentTime + 60000 * 5 >= new Date().getTime()) {}
+    // const Completive = mongoose.model('Completive');
+    ////console.log(cookie);
+    request.post(`${url}/index.php`, {
+        form: {
+            'sys[task]': 'messages',
+            'sys[name]': 'messages',
+            'sys[type]': 'widget',
+            'sys[lang]': 'fr-FR',
+        },
+        headers: {
+            Cookie: `${cookie}`,
+        }
+    }, async (err, res, body) => {
+        if (err)
+            console.log(err, 'completive.log')
+        try {
+            console.log("Get Messages reussi");
+            console.log(body);
+            return JSON.parse(body).ressources;
+
+        } catch (e) {
+            console.log(e, 'completive.log');
+        }
+    })
+}
+
+
+const getClasse = (cookie , section) => {
+    // var currentTime = new Date().getTime();
+    // while (currentTime + 60000 * 5 >= new Date().getTime()) {}
+    // const Completive = mongoose.model('Completive');
+    //console.log(cookie);
+    request.post(`${url}/index.php`, {
+        form: {
+            'data[idsection]': `${section}`,
+            'sys[task]': 'listeleves',
+            'sys[name]': 'trombinoscope',
+            'sys[type]': 'widget',
+            'sys[lang]': 'fr-FR',
+        },
+        headers: {
+            Cookie: `${cookie}`,
+        }
+    }, async (err, res, body) => {
+        if (err)
+            console.log(err, 'completive.log')
+        try {
+            console.log("Get Messages reussi");
+            console.log(body);
+            return JSON.parse(body).ressources;
+
+        } catch (e) {
+            console.log(e, 'completive.log');
+        }
+    })
+}
+
+
+
 
 
 
@@ -105,7 +195,8 @@ router.route('/completive')
         const tryLogin = await connectLogin();
         res.json(tryLogin);
     })
-const connectLogin = (username = 'STISSOT', password = 'T2213633') => {
+
+const connectLogin = (_username, _password) => {
     
     return new Promise(async (resolve, reject) => {
         //attendre le poste de la page d'acceuil de l'application web
@@ -121,6 +212,8 @@ const connectLogin = (username = 'STISSOT', password = 'T2213633') => {
         }, async (err, res) => {
             if (err) resolve(false);
             const cookie = res.headers['set-cookie'][0].split(';')[0];
+            const section = res.headers['user'][0].split(';')[0];
+            console.log(section);
             await request.post(url, {
                 form: {
                     'sys[task]': 'JSONUser',
@@ -135,17 +228,21 @@ const connectLogin = (username = 'STISSOT', password = 'T2213633') => {
             async (error, response) => {
                 if (error) resolve(false);
                 const data = JSON.parse(response.body);
+                user.section = req.body.section;
+                const section = user.section;
+                console.log(section);
                 if (data.success) {
                     resolve({
                         cookie: `${cookie}; ISLOGGED=true`,
                         user: data
                     });
                     
-                    console.log(self);
                     setTimeout(function () {
                         const add = cookie +"; ISLOGGED=true";
-                        console.log(add);
-                        getDataCompletive(add)
+                        //getDataCompletive(add);
+                        //getVieScolaire(add);
+                        //getMessages(add);
+                        //getClasse(add,section);
                     }, 1500);
                 } else
                     resolve(false)

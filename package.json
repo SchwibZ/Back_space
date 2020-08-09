@@ -4,9 +4,7 @@
   "description": "",
   "main": "back.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon back.js",
-    "prestart": "nodemon space.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -19,6 +17,7 @@
   },
   "homepage": "https://github.com/SchwibZ/Back_space#readme",
   "dependencies": {
-    "logger": "0.0.1"
+    "logger": "0.0.1",
+    "request": "^2.88.2"
   }
 }
