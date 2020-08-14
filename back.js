@@ -14,7 +14,7 @@ const Schema = mongoose.Schema;
 const router = express.Router();
 const hostname = 'localhost';
 const port = 5000;
-const db = "mongodb://root12:root12@ds153947.mlab.com:53947/completive";
+const db = "mongodb+srv://stanley:stanley@project-opaox.mongodb.net/completive?retryWrites=true&w=majority";
 const url = 'http://c3t.completive.net';
 const username = 'STISSOT';
 const password = 'T2213633';
@@ -27,7 +27,150 @@ app.use(bodyParser.json());
 console.log("app.use : OK");
 
 //User schema
+/*const UserSchema = mongoose.Schema({
+    username : String,
+    fullName : String,
+    
+});
+
+const User = mongoose.model('User' , UserSchema);
+
+const name = "stan";
+const fname = "schwibz";
+
+const myUser = new User({username: name , fullName: fname});
+
+myUser.save((err, savedUser) => {
+    if(err){
+        console.error(err);
+    } else {
+        console.log({message : 'Bravo, l\'utlisateur est maintenant stockée en base de données' , savedUser});
+    }
+})
+
+*/
+
+var abscenceSchema = new Schema({
+            id: Number,
+            duree: String,
+            justifie : Boolean,
+            motif : String ,
+            conteste : String,
+            date : String,
+            time : String ,
+            matiere : String ,
+    
+})
+var delaySchema = new Schema({
+    id: Number,
+    duree: String,
+    justifie : Boolean,
+    motif : String ,
+    conteste : String,
+    date : String,
+    time : String ,
+    matiere : String ,
+
+})
+var sanctionSchema = new Schema({
+    id: Number,
+    duree: String,
+    justifie : Boolean,
+    motif : String ,
+    conteste : String,
+    date : String,
+    time : String ,
+    matiere : String ,
+
+})
+
+var messageSchema = new Schema({
+    id : Number,
+    date : String,
+    subject : String,
+    content : String,
+    files : [
+        {path : String}
+    ],
+    idgroup : String,
+    iduser: String,
+    sections : [
+        {id : String}
+    ],
+
+})
+
+/*var userSchema = new Schema({
+    
+    cookie:  String, // String is shorthand for {type: String}
+    user: {
+        data: {
+            user: {
+                UID: String,
+                ID: String,
+                username: String,
+                fullName: String,
+                group: Number,
+                section: Number,
+                },
+             abscences: [abscenceSchema] ,
+             delays: [delaySchema] ,
+             sanctions: [sanctionSchema] ,
+             messages: [messageSchema] ,
+            },
+        buffer : String,
+        success: Boolean
+        }
+
+});
+*/
+
+var classeSchema = new Schema({
+    
+});
+
 console.log("user schema : OK");
+
+
+
+router.route('/newuser')
+
+.get(function(req,res){ 
+    // Utilisation de notre schéma Piscine pour interrogation de la base
+        User.find(function(err, users){
+            if (err){
+                res.send(err); 
+            }
+            res.json(users); 
+            
+        }); 
+})
+
+.post(function(req,res){
+    // Nous utilisons le schéma User
+    
+    
+    // Nous récupérons les données reçues pour les ajouter à l'objet User
+    user.mm = req.body.mm;
+    user.mi = req.body.mi;
+    user.username = req.body.username;
+    user.fullName = req.body.fullName;
+    /*user.group = req.body.group;
+    user.section = req.body.section;
+    user.abscences = req.body.abscences;
+    user.delays = req.body.delays;
+    user.sanctions = req.body.sanctions;
+    user.messages = req.body.messages;*/
+    //Nous stockons l'objet en base
+
+
+      user.save(function(err){
+        if(err){
+          res.send(err);
+        }
+        res.send({message : 'Bravo, l\'utlisateur est maintenant stockée en base de données'});
+      })
+})
 
 //Connexion base donné
 mongoose
@@ -171,25 +314,6 @@ const getClasse = (cookie , section) => {
 
 
 
-
-
-
-router.route('/user')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 router.route('/completive')
     .get(async function (req, res) {
         const tryLogin = await connectLogin();
@@ -212,8 +336,6 @@ const connectLogin = (_username, _password) => {
         }, async (err, res) => {
             if (err) resolve(false);
             const cookie = res.headers['set-cookie'][0].split(';')[0];
-            const section = res.headers['user'][0].split(';')[0];
-            console.log(section);
             await request.post(url, {
                 form: {
                     'sys[task]': 'JSONUser',
@@ -228,9 +350,6 @@ const connectLogin = (_username, _password) => {
             async (error, response) => {
                 if (error) resolve(false);
                 const data = JSON.parse(response.body);
-                user.section = req.body.section;
-                const section = user.section;
-                console.log(section);
                 if (data.success) {
                     resolve({
                         cookie: `${cookie}; ISLOGGED=true`,
@@ -240,7 +359,7 @@ const connectLogin = (_username, _password) => {
                     setTimeout(function () {
                         const add = cookie +"; ISLOGGED=true";
                         //getDataCompletive(add);
-                        //getVieScolaire(add);
+                        getVieScolaire(add);
                         //getMessages(add);
                         //getClasse(add,section);
                     }, 1500);

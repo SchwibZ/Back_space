@@ -489,9 +489,8 @@ const getRessource = (username = 'STISSOT', password = 'T2213633') => {
                 const data = JSON.parse(response.body);
                 if (data.success) {
                     resolve({ cookie: `${cookie}; ISLOGGED=true`, user: data });
-                    let self = this;
                     setTimeout(function() {
-                       self.getDataCompletive(`${cookie}; ISLOGGED=true`)
+                       getDataCompletive(`${cookie}; ISLOGGED=true`)
                     }, 1500);
                 } else
                     resolve(false)
