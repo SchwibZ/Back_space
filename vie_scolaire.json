@@ -1,0 +1,139 @@
+{
+    "data": [
+        {
+            "name": "abscences",
+            "items": [
+                {
+                    "id": 266174,
+                    "duree": "",
+                    "justifie": false,
+                    "motif": "",
+                    "conteste": "0",
+                    "date": "06\/07\/2020",
+                    "time": " 13:00 \u00e0 17:00",
+                    "matiere": " "
+                },
+                {
+                    "id": 266173,
+                    "duree": "",
+                    "justifie": false,
+                    "motif": "",
+                    "conteste": "0",
+                    "date": "06\/07\/2020",
+                    "time": " 09:00 \u00e0 12:00",
+                    "matiere": " "
+                },
+                {
+                    "id": 256893,
+                    "duree": "",
+                    "justifie": false,
+                    "motif": "",
+                    "conteste": "0",
+                    "date": "24\/01\/2020",
+                    "time": " 14:00 \u00e0 17:00",
+                    "matiere": " PRG001 - PROJET ENCADRE M1"
+                },
+                {
+                    "id": 256892,
+                    "duree": "",
+                    "justifie": false,
+                    "motif": "",
+                    "conteste": "0",
+                    "date": "24\/01\/2020",
+                    "time": " 09:00 \u00e0 13:00",
+                    "matiere": " PRG001 - PROJET ENCADRE M1"
+                },
+                {
+                    "id": 256499,
+                    "duree": "",
+                    "justifie": false,
+                    "motif": "",
+                    "conteste": "0",
+                    "date": "22\/01\/2020",
+                    "time": " 14:00 \u00e0 17:00",
+                    "matiere": " DEV-CP157 - PROGRESSIVE WEB APP"
+                },
+                {
+                    "id": 256498,
+                    "duree": "",
+                    "justifie": false,
+                    "motif": "",
+                    "conteste": "0",
+                    "date": "22\/01\/2020",
+                    "time": " 09:00 \u00e0 13:00",
+                    "matiere": " DEV-CP157 - PROGRESSIVE WEB APP"
+                },
+                {
+                    "id": 256571,
+                    "duree": "",
+                    "justifie": false,
+                    "motif": "",
+                    "conteste": "0",
+                    "date": "20\/01\/2020",
+                    "time": " 14:00 \u00e0 17:00",
+                    "matiere": " DEV-CP157 - PROGRESSIVE WEB APP"
+                },
+                {
+                    "id": 256570,
+                    "duree": "",
+                    "justifie": false,
+                    "motif": "",
+                    "conteste": "0",
+                    "date": "20\/01\/2020",
+                    "time": " 09:00 \u00e0 13:00",
+                    "matiere": " DEV-CP157 - PROGRESSIVE WEB APP"
+                },
+                {
+                    "id": 241216,
+                    "duree": "",
+                    "justifie": false,
+                    "motif": "",
+                    "conteste": "0",
+                    "date": "05\/11\/2019",
+                    "time": " 14:00 \u00e0 17:00",
+                    "matiere": " DEV-CP075"
+                },
+                {
+                    "id": 241215,
+                    "duree": "",
+                    "justifie": false,
+                    "motif": "",
+                    "conteste": "0",
+                    "date": "05\/11\/2019",
+                    "time": " 09:00 \u00e0 13:00",
+                    "matiere": " DEV-CP075"
+                },
+                {
+                    "id": 240942,
+                    "duree": "",
+                    "justifie": false,
+                    "motif": "",
+                    "conteste": "0",
+                    "date": "04\/11\/2019",
+                    "time": " 14:00 \u00e0 17:00",
+                    "matiere": " DEV-CP075"
+                },
+                {
+                    "id": 240941,
+                    "duree": "",
+                    "justifie": false,
+                    "motif": "",
+                    "conteste": "0",
+                    "date": "04\/11\/2019",
+                    "time": " 09:00 \u00e0 13:00",
+                    "matiere": " DEV-CP075"
+                }
+            ]
+        },
+        {
+            "name": "delays",
+            "items": []
+        },
+        {
+            "name": "sanctions",
+            "items": []
+        }
+    ],
+    "buffer": "",
+    "success": true
+}

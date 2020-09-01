@@ -26,108 +26,98 @@ app.use(router);
 app.use(bodyParser.json());
 console.log("app.use : OK");
 
+
 //User schema
-/*const UserSchema = mongoose.Schema({
-    username : String,
-    fullName : String,
+const UserSchema = new Schema({
+    UID: String,
+    ID: String,
+    username: String,
+    fullName: String,
+    group: Number,
+    section: Number,
+});
+
+const AbscenceSchema = new Schema({
+        id: Number,
+        duree: String,
+        justifie: Boolean,
+        motif: String,
+        conteste: String,
+        date: String,
+        
+        time: String,
+        matiere: String,
+});
+
+const DelaySchema = new Schema({
+    id: Number,
+    duree: String,
+    justifie: Boolean,
+    motif: String,
+    conteste: String,
+    date: String,
+    time: String,
+    matiere: String,
+});
+
+const SanctionSchema = new Schema({
+    id: Number,
+    duree: String,
+    justifie: Boolean,
+    motif: String,
+    conteste: String,
+    date: String,
+    time: String,
+    matiere: String,
+});
+
+
+const MessageSchema = new Schema({
+    id: Number,
+    date: String,
+    subject: String,
+    content: String,
+    files: [String],
+    idgroup: String,
+    iduser: String,
+    sections: String,
+    datefr: String,
+
     
 });
 
-const User = mongoose.model('User' , UserSchema);
+const StudentSchema = mongoose.Schema({
+    UserSchema,
+    AbscenceSchema :[AbscenceSchema],
+    DelaySchema :[DelaySchema],
+    SanctionSchema :[SanctionSchema],
+    MessageSchema :[MessageSchema]  ,
+ 
+});
 
-const name = "stan";
-const fname = "schwibz";
+const User = mongoose.model('User' , StudentSchema);
 
-const myUser = new User({username: name , fullName: fname});
+/*
+const myUser = ({UID:UID , ID:ID , username: username , fullName: fullName , group:group , section:section});
+const myAbscences = ({id:id , duree:duree , justifie: justifi , motif: motif , conteste:conteste , date:date , time:time , matiere:matiere});
+const myAbscences2 = ({id:id , duree:duree , justifie: justifie , motif: motif , conteste:conteste , date:date , time:time , matiere:matiere});
+const myDelays = ({id:id , duree:duree , justifie: justifie , motif: motif , conteste:conteste , date:date , time:time , matiere:matiere});
+const mySanctions = ({id:id , duree:duree , justifie: justifie , motif: motif , conteste:conteste , date:date , time:time , matiere:matiere});
+const myMessages = ({id:id , duree:duree , justifie: justifie , motif: motif , conteste:conteste , date:date , time:time , matiere:matiere});
+const myStudent = new User ({ UserSchema : myUser , AbscenceSchema:[myAbscences,myAbscences2] , DelaySchema:myDelays , SanctionSchema:mySanctions , MessageSchema:myMessages });
+*/
 
-myUser.save((err, savedUser) => {
+
+/*myStudent.save((err, savedUser) => {
     if(err){
-        console.error(err);
+        console.error(err)
     } else {
         console.log({message : 'Bravo, l\'utlisateur est maintenant stockée en base de données' , savedUser});
     }
-})
+})*/
 
-*/
 
-var abscenceSchema = new Schema({
-            id: Number,
-            duree: String,
-            justifie : Boolean,
-            motif : String ,
-            conteste : String,
-            date : String,
-            time : String ,
-            matiere : String ,
-    
-})
-var delaySchema = new Schema({
-    id: Number,
-    duree: String,
-    justifie : Boolean,
-    motif : String ,
-    conteste : String,
-    date : String,
-    time : String ,
-    matiere : String ,
 
-})
-var sanctionSchema = new Schema({
-    id: Number,
-    duree: String,
-    justifie : Boolean,
-    motif : String ,
-    conteste : String,
-    date : String,
-    time : String ,
-    matiere : String ,
-
-})
-
-var messageSchema = new Schema({
-    id : Number,
-    date : String,
-    subject : String,
-    content : String,
-    files : [
-        {path : String}
-    ],
-    idgroup : String,
-    iduser: String,
-    sections : [
-        {id : String}
-    ],
-
-})
-
-/*var userSchema = new Schema({
-    
-    cookie:  String, // String is shorthand for {type: String}
-    user: {
-        data: {
-            user: {
-                UID: String,
-                ID: String,
-                username: String,
-                fullName: String,
-                group: Number,
-                section: Number,
-                },
-             abscences: [abscenceSchema] ,
-             delays: [delaySchema] ,
-             sanctions: [sanctionSchema] ,
-             messages: [messageSchema] ,
-            },
-        buffer : String,
-        success: Boolean
-        }
-
-});
-*/
-
-var classeSchema = new Schema({
-    
-});
 
 console.log("user schema : OK");
 
@@ -234,12 +224,130 @@ const getVieScolaire = (cookie) => {
             Cookie: `${cookie}`,
         }
     }, async (err, res, body) => {
+        const data = JSON.parse(res.body);
         if (err)
             console.log(err, 'completive.log')
         try {
+            
             console.log("Get VieScolaire reussi");
-            console.log(body);
-            return JSON.parse(body).ressources;
+            //console.log(body);
+            //const myAbscences = ({id:id , duree:duree , justifie: justifi , motif: motif , conteste:conteste , date:date , time:time , matiere:matiere});
+            //const myAbscences2 = ({id:id , duree:duree , justifie: justifie , motif: motif , conteste:conteste , date:date , time:time , matiere:matiere});
+            //const myDelays = ({id:id , duree:duree , justifie: justifie , motif: motif , conteste:conteste , date:date , time:time , matiere:matiere});
+            //const mySanctions = ({id:id , duree:duree , justifie: justifie , motif: motif , conteste:conteste , date:date , time:time , matiere:matiere});
+            //console.log(data);
+            function asyncGetSomemyAbscences (data) {
+                return (new Promise ((resolve, reject) => {
+                    console.log ("Getting some myAbscences...");
+                    setTimeout (() => {
+                        const abs = data.data[0].items;
+                        var all = [];
+                            for (i in abs) {
+                                var x 
+                                x = abs[i];
+                                //console.log("mon abcences n° "+ i); 
+                                //console.log(x);
+                                var a = [];
+                                a.push(x);
+                                p == "myAbscences"+i;
+                                
+                                //console.log(a);
+                                for (i in a){
+                                    var p
+                                    var tab = [];
+                                    tab.push(p,a[i])
+                                    //console.log (tab[1].id);
+                                    var myAbscences = ({id:tab[1].id, duree:tab[1].duree , justifie: tab[1].justifie , motif: tab[1].motif , conteste:tab[1].conteste , date:tab[1].date , time:tab[1].time , matiere:tab[1].matiere});
+                                    //console.log("myAbscences :")
+                                    //console.log(myAbscences);
+                                    all.push(myAbscences)
+                                }
+                                
+                            };
+                            console.log(all);
+                            resolve(all);
+                            //console.log(all);
+                    }, 2000);
+                }));
+            }
+
+
+            function asyncGetSomemyDelays (data) {
+                return (new Promise ((resolve, reject) => {
+                    console.log ("Getting some myDelays...");
+                    setTimeout (() => {
+                            const del = data.data[1].items;
+                            for (i in del) {
+                                var x 
+                                x = del[i];
+                                //console.log("mon abcences n° "+ i);
+                                //console.log(x);
+                                var a = [];
+                                a.push(x);
+                                p = "myDelays"+i
+                                //console.log(a);
+                                for (i in a){
+                                    var p
+                                    var tab = [];
+                                    tab.push(p,a[i])
+                                    //console.log (tab[1].id);
+                                    var myDelays = ({id:tab[1].id, duree:tab[1].duree , justifie: tab[1].justifie , motif: tab[1].motif , conteste:tab[1].conteste , date:tab[1].date , time:tab[1].time , matiere:tab[1].matiere});
+                                    console.log("myDelays :")
+                                    console.log(myDelays);
+                                }
+                            };
+                            resolve (myDelays);
+                    }, 2000);
+                }));
+            }
+
+
+            function asyncGetSomemySanctions(data) {
+                return (new Promise ((resolve, reject) => {
+                    console.log ("Getting some mySanctions...");
+                    setTimeout (() => {
+                            const san = data.data[2].items;
+                            for (i in san) {
+                                var x 
+                                x = san[i];
+                                //console.log("mon abcences n° "+ i);
+                                //console.log(x);
+                                var a = [];
+                                a.push(x);
+                                p = "mySanctions"+i
+                                //console.log(a);
+                                for (i in a){
+                                    var p
+                                    var tab = [];
+                                    tab.push(p,a[i])
+                                    //console.log (tab[1].id);
+                                    var mySanctions = ({id:tab[1].id, duree:tab[1].duree , justifie: tab[1].justifie , motif: tab[1].motif , conteste:tab[1].conteste , date:tab[1].date , time:tab[1].time , matiere:tab[1].matiere});
+                                    console.log("mySanctions :")
+                                    console.log(mySanctions);
+                                }
+                            };
+                            resolve (mySanctions);
+                    }, 2000);
+                }));
+            }
+
+
+
+            async function executeParallelAsyncTasks (data) {
+                return await Promise.all([ asyncGetSomemyAbscences(data), asyncGetSomemySanctions(data), asyncGetSomemyDelays(data)]).then((values) => {
+                    //console.log(values);
+                });
+                
+            }
+
+            const result = await executeParallelAsyncTasks(data);
+            //console.log("resultat : ",  result);
+
+            //console.log(pas[1]);
+            
+            //console.log(result);
+            return (result);
+
 
         } catch (e) {
             console.log(e, 'completive.log');
@@ -263,17 +371,40 @@ const getMessages = (cookie) => {
             Cookie: `${cookie}`,
         }
     }, async (err, res, body) => {
+        const data = JSON.parse(res.body);
+        const pas = data.data;
         if (err)
             console.log(err, 'completive.log')
         try {
             console.log("Get Messages reussi");
-            console.log(body);
-            return JSON.parse(body).ressources;
+            //console.log(body);
+
+            for (i in pas) {
+                var x 
+                x = pas[i];
+                //console.log("mon abcences n° "+ i);
+                //console.log(x);
+                var a = [];
+                a.push(x);
+                p = "myMessages"+i
+                //console.log(a);
+                for (i in a){
+                    var p
+                    var tab = [];
+                    tab.push(p,a[i])
+                    //console.log (tab[1].id);
+                    myMessages = ({id:tab[1].id, date:tab[1].date , subject: tab[1].subject , content: tab[1].content , files:tab[1].files , idgroup:tab[1].idgroup , iduser:tab[1].iduser , sections:tab[1].sections, datefr:tab[1].datefr});
+                     console.log("myMessages : " , myMessages);
+                }
+              }
+        
+
+            return myMessages.ressources;
 
         } catch (e) {
             console.log(e, 'completive.log');
         }
-    })
+    }) 
 }
 
 
@@ -298,7 +429,31 @@ const getClasse = (cookie , section) => {
             console.log(err, 'completive.log')
         try {
             console.log("Get Messages reussi");
-            console.log(body);
+            
+            
+
+            const pas = data.data[0].items;
+            for (i in pas) {
+                var x 
+                x = pas[i];
+                //console.log("mon abcences n° "+ i);
+                //console.log(x);
+                var a = [];
+                a.push(x);
+                p = "myMessages"+i
+                //console.log(a);
+                for (i in a){
+                    var p
+                    var tab = [];
+                    tab.push(p,a[i])
+                    //console.log (tab[1].id);
+                    myMessages = ({id:tab[1].id, duree:tab[1].duree , justifie: tab[1].justifie , motif: tab[1].motif , conteste:tab[1].conteste , date:tab[1].date , time:tab[1].time , matiere:tab[1].matiere});
+                    console.log(myMessages);
+                }
+              }
+
+
+
             return JSON.parse(body).ressources;
 
         } catch (e) {
@@ -335,6 +490,7 @@ const connectLogin = (_username, _password) => {
             },
         }, async (err, res) => {
             if (err) resolve(false);
+            console.log("connexion completive : OK");
             const cookie = res.headers['set-cookie'][0].split(';')[0];
             await request.post(url, {
                 form: {
@@ -355,15 +511,47 @@ const connectLogin = (_username, _password) => {
                         cookie: `${cookie}; ISLOGGED=true`,
                         user: data
                     });
-                    
-                    setTimeout(function () {
+                    //console.log(data);
+                    const myUser = ({UID:data.data.user.UID , ID:data.data.user.ID , username:data.data.user.username , fullName: data.data.user.fullName , group:data.data.user.group , section:data.data.user.section});
+                    //console.log(myUser);
+                    setTimeout(async function () {
                         const add = cookie +"; ISLOGGED=true";
-                        //getDataCompletive(add);
-                        getVieScolaire(add);
+                        const a = getVieScolaire(add);
+
+                        async function all (data , add) {
+                            console.log(await Promise.all([ /*getDataCompletive(add),  console.log("await " ,*/getVieScolaire(add)/*) , getMessages(add) ,*/ /*getClasse(add,data.data.user.section)*/]));
+                            return await Promise.all([ /*getDataCompletive(add),  console.log("await " ,getVieScolaire(add)) , getMessages(add) ,*/ /*getClasse(add,data.data.user.section)*/]);
+                            
+                          }
+                        //getDataCompletive(add)
+                        
+                        //const result = await all(data , add);
+                        const result = await all(data , add )
+                        console.log("result est : " , result);
+                        console.log("result de a : " , a);
+                        
+                        
+                        
+                        
+                        
+                        
                         //getMessages(add);
-                        //getClasse(add,section);
-                    }, 1500);
-                } else
+                        //getClasse(add,data.data.user.section);
+                    },
+                    
+                    1500);
+                    
+                    /*const myStudent = new User ({ UserSchema : myUser , AbscenceSchema:[myAbscences] , DelaySchema:myDelays , SanctionSchema:mySanctions , MessageSchema:myMessages });
+                        myStudent.save((err, savedUser) => {
+                            if(err){
+                                console.error(err)
+                            } else {
+                                console.log({message : 'Bravo, l\'utlisateur est maintenant stockée en base de données' , savedUser});
+                            }
+                        })*/
+
+                } 
+                else
                     resolve(false)
             });
 
